@@ -1,0 +1,12 @@
+# Movimento do cavalo para a coordenada b3
+MOVER cavalo PARA b3
+
+# Condicional para verificar se o rei está em xeque
+SE CONDICAO ENTAO
+    # Bloco de instruções
+FIM_CONDICIONAL
+
+# Loop para realizar uma série de movimentos
+ENQUANTO CONDICAO FACA
+    # Bloco de instruções
+FIM_LOOP
