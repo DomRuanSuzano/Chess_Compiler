@@ -10,6 +10,7 @@ TaskScript é uma linguagem simples para gerenciamento de lista de tarefas, proj
 
 ## EBNF
 
+```plaintext
 PROGRAM             = { TASK_DECLARATION };
 TASK_DECLARATION   = "TASK", IDENTIFIER, ":", STRING, [TASK_STATE];
 TASK_STATE         = "DONE" | "UNDONE";
@@ -23,7 +24,8 @@ IDENTIFIER          = LETTER, { LETTER | DIGIT | "_" };
 STRING              = '"', ({ LETTER | DIGIT | "_" }), '"';
 NUMBER              = DIGIT, { DIGIT };
 LETTER              = ( "a" | "..." | "z" | "A" | "..." | "Z" ) ;
-DIGIT               = ( "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ) ; 
+DIGIT               = ( "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ) ;
+```
 
 ## Exemplos de Uso
 
