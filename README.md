@@ -1,90 +1,85 @@
-# Linguagem de Programação para Simulação de Xadrez
+# TaskScript
 
-Esta é uma linguagem de programação simples criada para simular jogos de xadrez através de comandos de texto. Ela foi desenvolvida como parte de um projeto de aprendizado e tem como objetivo proporcionar uma experiência acessível e educativa para programadores interessados em explorar os fundamentos da linguagem de programação e a lógica por trás do jogo de xadrez.
+TaskScript é uma linguagem simples para gerenciamento de lista de tarefas, projetada para facilitar a criação e manipulação de tarefas de forma eficiente.
 
-## Funcionalidades Principais
+## Características
 
-- **Movimentação de Peças**: Os jogadores podem mover as peças no tabuleiro através de comandos específicos.
-- **Condicionais e Loops**: A linguagem suporta construções como condicionais (se-então-senão) e loops (enquanto) para controle de fluxo.
-- **Variáveis e Atribuições**: Os jogadores podem declarar variáveis e atribuir valores a elas para armazenar informações durante o jogo.
-- **Chamadas de Funções**: Os jogadores podem definir e chamar funções para reutilizar blocos de código.
+- **Simplicidade**: TaskScript foi projetada com uma sintaxe simples e intuitiva, facilitando a criação e compreensão de scripts.
+- **Flexibilidade**: Permite a criação, marcação e exibição de tarefas, além de suportar condicionais e loops para controle de fluxo.
+- **Legibilidade**: A sintaxe foi projetada para ser legível e expressiva, facilitando a manutenção e compreensão do código.
 
-## Exemplo de Uso
+## EBNF
 
-```python
-# Movimento do cavalo para a coordenada b3
-MOVER cavalo PARA b3
-
-# Condicional para verificar se o rei está em xeque
-SE CONDICAO ENTAO
-    # Bloco de instruções
-FIM_CONDICIONAL
-
-# Loop para realizar uma série de movimentos
-ENQUANTO CONDICAO FACA
-    # Bloco de instruções
-FIM_LOOP
+```plaintext
+PROGRAM             = { TASK_DECLARATION };
+TASK_DECLARATION   = "TASK", IDENTIFIER, STRING, [TASK_STATE]
+                    | "MARK", IDENTIFIER, "AS", TASK_STATE
+                    | "DISPLAY", IDENTIFIER
+                    | "REPEAT", "FOR", "EACH", TASK_STATE, "\n", { TASK_DECLARATION }, "END"
+                    | "IF", CONDITION, "\n", { COMMAND }, ["ELSE", "\n", { TASK_DECLARATION }], "END"
+;
+TASK_STATE         = "DONE" | "UNDONE";
+CONDITION           = IDENTIFIER, ("IS" | "IS NOT"), TASK_STATE;
+IDENTIFIER          = LETTER, { LETTER | DIGIT | "_" };
+STRING              = '"', ({ LETTER | DIGIT | "_" }), '"';
+NUMBER              = DIGIT, { DIGIT };
+LETTER              = ( "a" | "..." | "z" | "A" | "..." | "Z" ) ;
+DIGIT               = ( "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ) ;
 ```
 
-## Gramática EBNF
+## Exemplos de Uso
 
-```python
-programa           ::= { instrucao } ;
+Aqui estão alguns exemplos de como usar o TaskScript:
 
-instrucao          ::= movimento
-                     | condicional
-                     | loop
-                     | declaracao
-                     | atribuicao
-                     | chamada_funcao
-                     | RETORNAR expressao ;
+1. **Marcar uma tarefa como concluída**:
 
-movimento          ::= MOVER peca PARA coordenada ;
+    ```plaintext
+    TASK comprar_leite: "Comprar leite"
+    MARK comprar_leite AS DONE
+    ```
 
-condicional        ::= SE condicao ENTAO bloco_instrucoes ( SENAO bloco_instrucoes )? FIM_CONDICIONAL ;
+2. **Exibir uma tarefa específica**:
 
-loop               ::= ENQUANTO condicao faca bloco_instrucoes FIM_LOOP ;
+    ```plaintext
+    TASK lavar_carro: "Lavar o carro"
+    DISPLAY lavar_carro
+    ```
 
-declaracao         ::= tipo VARIAVEL ;
+3. **Loop para exibir todas as tarefas não concluídas uma vez**:
 
-atribuicao         ::= VARIAVEL = expressao ;
+    ```plaintext
+    TASK comprar_leite: "Comprar leite" DONE
+    TASK lavar_carro: "Lavar o carro"
+    TASK pagar_contas: "Pagar contas"
 
-chamada_funcao     ::= NOME_FUNCAO '(' parametros ')' ;
+    REPEAT FOR EACH UNDONE TASK
+        DISPLAY CURRENT TASK
+    END
+    ```
 
-parametros         ::= expressao { ',' expressao } ;
+4. **Loop para exibir todas as tarefas concluídas uma vez**:
 
-bloco_instrucoes   ::= '{' programa '}' ;
+    ```plaintext
+    TASK comprar_leite "Comprar leite" DONE
+    TASK lavar_carro "Lavar o carro"
+    TASK pagar_contas "Pagar contas"
 
-expressao          ::= termo { operador termo } ;
+    REPEAT FOR EACH DONE TASK
+        DISPLAY CURRENT TASK
+    END
+    ```
 
-termo              ::= VARIAVEL | NUMERO | '(' expressao ')' ;
+5. **Condicional para exibir uma tarefa apenas se outra estiver concluída**:
 
-condicao           ::= expressao operador_logico expressao ;
+    ```plaintext
+    TASK comprar_leite: "Comprar leite"
+    TASK lavar_carro: "Lavar o carro"
 
-tipo               ::= INTEIRO | TEXTO | BOOLEANO ;
+    IF comprar_leite IS DONE
+        DISPLAY lavar_carro
+    END
+    ```
 
-peca               ::= REI | RAINHA | TORRE | BISPO | CAVALO | PEAO ;
+## Contribuição
 
-coordenada         ::= letra numero ;
-
-letra              ::= 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h' ;
-
-numero             ::= '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' ;
-
-operador           ::= '+' | '-' | '*' | '/' ;
-
-operador_logico    ::= '==' | '!=' | '>' | '<' | '>=' | '<=' ;
-
-INTEIRO            ::= "inteiro" ;
-TEXTO              ::= "texto" ;
-BOOLEANO           ::= "booleano" ;
-REI                ::= "rei" ;
-RAINHA             ::= "rainha" ;
-TORRE              ::= "torre" ;
-BISPO              ::= "bispo" ;
-CAVALO             ::= "cavalo" ;
-PEAO               ::= "peao" ;
-VARIAVEL           ::= [a-zA-Z_][a-zA-Z0-9_]* ;
-NOME_FUNCAO        ::= [a-zA-Z_][a-zA-Z0-9_]* ;
-NUMERO             ::= [0-9]+ ;
-```
+Contribuições são bem-vindas! Se você encontrar problemas ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
