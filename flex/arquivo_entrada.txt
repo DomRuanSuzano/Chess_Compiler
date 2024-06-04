@@ -1,12 +1,17 @@
-# Movimento do cavalo para a coordenada b3
-MOVER cavalo PARA b3
+TASK task1 "Description 1" DONE
+TASK task2 "Description 2" UNDONE
 
-# Condicional para verificar se o rei está em xeque
-SE CONDICAO ENTAO
-    # Bloco de instruções
-FIM_CONDICIONAL
+MARK task2 AS DONE
 
-# Loop para realizar uma série de movimentos
-ENQUANTO CONDICAO FACA
-    # Bloco de instruções
-FIM_LOOP
+DISPLAY task2
+
+REPEAT FOR EACH UNDONE
+    DISPLAY task1
+    DISPLAY task2
+    
+IF task1 IS DONE
+    DISPLAY task1
+ELSE
+    DISPLAY task2
+END
+

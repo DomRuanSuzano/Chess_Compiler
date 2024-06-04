@@ -2,88 +2,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+extern void yyerror(const char *s);
+extern int yylex(void);
 %}
 
-// Definição dos tokens
-%token MOVER PARA SE ENTAO FIM_CONDICIONAL ENQUANTO FACA FIM_LOOP VARIAVEL COORDENADA
-%token REI RAINHA TORRE BISPO CAVALO PEAO NUMERO
-%token OPERADOR OPERADOR_LOGICO
+%token TASK DONE UNDONE MARK AS DISPLAY REPEAT FOR EACH IF ELSE IS IS_NOT STRING NUMBER IDENTIFIER NEWLINE END
 
-// Definição da union
-%union {
-    char* sval;
-    int ival;
-}
-
-// Definição das regras gramaticais
 %%
-
-programa: instrucao { printf("Programa válido!\n"); }
-        | programa instrucao { printf("Programa válido!\n"); }
+program : task_declaration
+        | program task_declaration
         ;
 
-instrucao: movimento
-         | condicional
-         | loop
-         ;
+task_declaration : TASK IDENTIFIER STRING task_state NEWLINE
+                | TASK IDENTIFIER STRING NEWLINE
+                | MARK IDENTIFIER AS task_state NEWLINE
+                | DISPLAY IDENTIFIER NEWLINE
+                | REPEAT FOR EACH task_state NEWLINE task_declaration
+                | if
+                | NEWLINE
+                 ;
 
-movimento: MOVER peca PARA coordenada { printf("Movimento válido!\n"); }
-         ;
+if : IF condition NEWLINE task_declaration END
+   | IF condition NEWLINE task_declaration ELSE NEWLINE task_declaration END;
 
-condicional: SE condicao ENTAO FIM_CONDICIONAL { printf("Condicional válido!\n"); }
+task_state : DONE
+            | UNDONE
             ;
 
-loop: ENQUANTO condicao FACA FIM_LOOP { printf("Loop válido!\n"); }
-    ;
-
-peca: REI | RAINHA | TORRE | BISPO | CAVALO | PEAO
-    ;
-
-coordenada: letra NUMERO
-          ;
-
-condicao: expressao operador_logico expressao
-        ;
-
-expressao: termo operador termo
-         ;
-
-termo: VARIAVEL | NUMERO | '(' expressao ')'
-     ;
-
-letra: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h'
-     ;
-
-operador: '+' | '-' | '*' | '/'
-        ;
-
-operador_logico: "<=" | '<' | '>' | "==" | ">="
-               ;
+condition : IDENTIFIER IS task_state
+            | IDENTIFIER IS_NOT task_state
+            ;
 
 %%
-
-// Função de tratamento de erro
 void yyerror(const char *s) {
-    fprintf(stderr, "Erro de sintaxe: %s\n", s);
+    fprintf(stderr, "%s\n", s);
 }
 
-// Função principal
-int main(int argc, char *argv[]) {
-    FILE *yyin;
-
-    if (argc < 2) {
-        fprintf(stderr, "Uso: %s <arquivo de entrada>\n", argv[0]);
-        return 1;
-    }
-
-    yyin = fopen(argv[1], "r");
-    if (!yyin) {
-        perror(argv[1]);
-        return 1;
-    }
-
+int main() {
     yyparse();
-
-    fclose(yyin);
     return 0;
 }

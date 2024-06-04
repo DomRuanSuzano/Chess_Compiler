@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -54,42 +54,54 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    MOVER = 258,                   /* MOVER  */
-    PARA = 259,                    /* PARA  */
-    SE = 260,                      /* SE  */
-    ENTAO = 261,                   /* ENTAO  */
-    FIM_CONDICIONAL = 262,         /* FIM_CONDICIONAL  */
-    ENQUANTO = 263,                /* ENQUANTO  */
-    FACA = 264,                    /* FACA  */
-    FIM_LOOP = 265,                /* FIM_LOOP  */
-    VARIAVEL = 266,                /* VARIAVEL  */
-    COORDENADA = 267,              /* COORDENADA  */
-    REI = 268,                     /* REI  */
-    RAINHA = 269,                  /* RAINHA  */
-    TORRE = 270,                   /* TORRE  */
-    BISPO = 271,                   /* BISPO  */
-    CAVALO = 272,                  /* CAVALO  */
-    PEAO = 273,                    /* PEAO  */
-    NUMERO = 274,                  /* NUMERO  */
-    OPERADOR = 275,                /* OPERADOR  */
-    OPERADOR_LOGICO = 276          /* OPERADOR_LOGICO  */
+    TASK = 258,                    /* TASK  */
+    DONE = 259,                    /* DONE  */
+    UNDONE = 260,                  /* UNDONE  */
+    MARK = 261,                    /* MARK  */
+    AS = 262,                      /* AS  */
+    DISPLAY = 263,                 /* DISPLAY  */
+    REPEAT = 264,                  /* REPEAT  */
+    FOR = 265,                     /* FOR  */
+    EACH = 266,                    /* EACH  */
+    IF = 267,                      /* IF  */
+    ELSE = 268,                    /* ELSE  */
+    IS = 269,                      /* IS  */
+    IS_NOT = 270,                  /* IS_NOT  */
+    STRING = 271,                  /* STRING  */
+    NUMBER = 272,                  /* NUMBER  */
+    IDENTIFIER = 273,              /* IDENTIFIER  */
+    NEWLINE = 274,                 /* NEWLINE  */
+    END = 275                      /* END  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
+/* Token kinds.  */
+#define YYEMPTY -2
+#define YYEOF 0
+#define YYerror 256
+#define YYUNDEF 257
+#define TASK 258
+#define DONE 259
+#define UNDONE 260
+#define MARK 261
+#define AS 262
+#define DISPLAY 263
+#define REPEAT 264
+#define FOR 265
+#define EACH 266
+#define IF 267
+#define ELSE 268
+#define IS 269
+#define IS_NOT 270
+#define STRING 271
+#define NUMBER 272
+#define IDENTIFIER 273
+#define NEWLINE 274
+#define END 275
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-union YYSTYPE
-{
-#line 13 "parser.y"
-
-    char* sval;
-    int ival;
-
-#line 90 "parser.tab.h"
-
-};
-typedef union YYSTYPE YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
@@ -101,4 +113,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
