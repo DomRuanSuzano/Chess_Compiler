@@ -8,6 +8,23 @@ TaskScript é uma linguagem simples para gerenciamento de lista de tarefas, proj
 - **Flexibilidade**: Permite a criação, marcação e exibição de tarefas, além de suportar condicionais e loops para controle de fluxo.
 - **Legibilidade**: A sintaxe foi projetada para ser legível e expressiva, facilitando a manutenção e compreensão do código.
 
+## EBNF
+
+PROGRAM             = { TASK_DECLARATION };
+TASK_DECLARATION   = "TASK", IDENTIFIER, ":", STRING, [TASK_STATE];
+TASK_STATE         = "DONE" | "UNDONE";
+COMMAND             = MARK_COMMAND | DISPLAY_COMMAND | LOOP_COMMAND | CONDITIONAL_COMMAND;
+MARK_COMMAND        = "MARK", IDENTIFIER, "AS", TASK_STATE;
+DISPLAY_COMMAND     = "DISPLAY", IDENTIFIER;
+LOOP_COMMAND        = "REPEAT", "FOR", "EACH", TASK_STATE, "\n", "{", { COMMAND }, "}";
+CONDITIONAL_COMMAND = "IF", CONDITION, "\n", "{", { COMMAND }, "}", ["ELSE", "\n", "{", { COMMAND }, "}"];
+CONDITION           = IDENTIFIER, ("IS" | "IS NOT"), TASK_STATE;
+IDENTIFIER          = LETTER, { LETTER | DIGIT | "_" };
+STRING              = '"', ({ LETTER | DIGIT | "_" }), '"';
+NUMBER              = DIGIT, { DIGIT };
+LETTER              = ( "a" | "..." | "z" | "A" | "..." | "Z" ) ;
+DIGIT               = ( "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ) ; 
+
 ## Exemplos de Uso
 
 Aqui estão alguns exemplos de como usar o TaskScript:
