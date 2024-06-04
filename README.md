@@ -8,6 +8,10 @@ TaskScript é uma linguagem simples para gerenciamento de lista de tarefas, proj
 - **Flexibilidade**: Permite a criação, marcação e exibição de tarefas, além de suportar condicionais e loops para controle de fluxo.
 - **Legibilidade**: A sintaxe foi projetada para ser legível e expressiva, facilitando a manutenção e compreensão do código.
 
+## Diagrama
+
+![Diagrama da Linguagem](diagrama_task.png)
+
 ## EBNF
 
 ```plaintext
