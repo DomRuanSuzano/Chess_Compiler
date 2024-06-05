@@ -51,27 +51,28 @@ Aqui estão alguns exemplos de como usar o TaskScript:
     DISPLAY lavar_carro
     ```
 
-3. **Loop para exibir todas as tarefas não concluídas uma vez**:
-
-    ```plaintext
-    TASK comprar_leite: "Comprar leite" DONE
-    TASK lavar_carro: "Lavar o carro"
-    TASK pagar_contas: "Pagar contas"
-
-    REPEAT FOR EACH UNDONE TASK
-        DISPLAY CURRENT TASK
-    END
-    ```
-
-4. **Loop para exibir todas as tarefas concluídas uma vez**:
+3. **Loop para marcar todas as tarefas concluídas de uma vez**:
 
     ```plaintext
     TASK comprar_leite "Comprar leite" DONE
     TASK lavar_carro "Lavar o carro"
     TASK pagar_contas "Pagar contas"
+    
+    REPEAT FOR EACH UNDONE
+        MARK EACH AS DONE
+    END
 
-    REPEAT FOR EACH DONE TASK
-        DISPLAY CURRENT TASK
+    ```
+
+4. **Loop para marcar todas as tarefas não concluídas de uma vez**:
+
+    ```plaintext
+    TASK comprar_leite "Comprar leite" DONE
+    TASK lavar_carro "Lavar o carro"
+    TASK pagar_contas "Pagar contas" DONE
+    
+    REPEAT FOR EACH DONE
+        MARK EACH AS UNDONE
     END
     ```
 
