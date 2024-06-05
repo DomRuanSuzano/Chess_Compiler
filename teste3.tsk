@@ -1,0 +1,8 @@
+TASK comprar_leite: "Comprar leite"
+TASK lavar_carro: "Lavar o carro"
+
+MARK comprar_leite AS DONE
+
+IF comprar_leite IS DONE
+    DISPLAY lavar_carro
+END

@@ -1,0 +1,7 @@
+TASK comprar_leite "Comprar leite" DONE
+TASK lavar_carro "Lavar o carro"
+TASK pagar_contas "Pagar contas" DONE
+
+REPEAT FOR EACH DONE
+    MARK AS UNDONE
+END
