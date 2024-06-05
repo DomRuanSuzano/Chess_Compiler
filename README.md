@@ -19,7 +19,7 @@ PROGRAM             = { TASK_DECLARATION, NEWLINE };
 TASK_DECLARATION   = "TASK", IDENTIFIER, STRING, [TASK_STATE]
                     | "MARK", IDENTIFIER, "AS", TASK_STATE
                     | "DISPLAY", IDENTIFIER
-                    | "REPEAT", "FOR", "EACH", TASK_STATE, NEWLINE, { TASK_DECLARATION }, "END"
+                    | "REPEAT", "FOR", "EACH", TASK_STATE, NEWLINE, "MARK", "AS", TASK_STATE, "END"
                     | "IF", CONDITION, NEWLINE, { COMMAND }, ["ELSE", NEWLINE, { TASK_DECLARATION }], "END"
                     | NEWLINE
 ;
@@ -59,7 +59,7 @@ Aqui estão alguns exemplos de como usar o TaskScript:
     TASK pagar_contas "Pagar contas"
     
     REPEAT FOR EACH UNDONE
-        MARK EACH AS DONE
+        MARK AS DONE
     END
 
     ```
@@ -72,7 +72,7 @@ Aqui estão alguns exemplos de como usar o TaskScript:
     TASK pagar_contas "Pagar contas" DONE
     
     REPEAT FOR EACH DONE
-        MARK EACH AS UNDONE
+        MARK AS UNDONE
     END
     ```
 
