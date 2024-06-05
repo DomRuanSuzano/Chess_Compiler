@@ -51,7 +51,7 @@ Aqui estão alguns exemplos de como usar o TaskScript:
     DISPLAY lavar_carro
     ```
 
-3. **Loop para marcar todas as tarefas concluídas de uma vez**:
+3. **Loop para marcar todas as tarefas como concluídas de uma vez**:
 
     ```plaintext
     TASK comprar_leite "Comprar leite" DONE
@@ -64,7 +64,7 @@ Aqui estão alguns exemplos de como usar o TaskScript:
 
     ```
 
-4. **Loop para marcar todas as tarefas não concluídas de uma vez**:
+4. **Loop para marcar todas as tarefas como não concluídas de uma vez**:
 
     ```plaintext
     TASK comprar_leite "Comprar leite" DONE
