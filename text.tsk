@@ -6,8 +6,8 @@ DISPLAY comprar_leite
 DISPLAY lavar_carro
 DISPLAY pagar_contas
 
-REPEAT FOR EACH DONE
-    MARK EACH AS UNDONE
+REPEAT FOR EACH UNDONE
+    MARK AS DONE
 END
 
 DISPLAY comprar_leite

@@ -80,13 +80,6 @@ class Parser:
                     return Mark(name, [state])
                 else:
                     raise ValueError("AS inválido")
-            if Parser.tokenizer.next.tipo == "EACH":
-                name = "EACH"
-                Parser.tokenizer.next_token()
-                if Parser.tokenizer.next.tipo == "AS":
-                    Parser.tokenizer.next_token()
-                    state = Parser.parser_state()
-                    return Mark(name, [state])
             else:
                 raise ValueError("Nome inválido")
         elif Parser.tokenizer.next.tipo == "DISPLAY":
@@ -95,14 +88,6 @@ class Parser:
                 name = Parser.tokenizer.next.valor
                 Parser.tokenizer.next_token()
                 return Display(name)
-            elif Parser.tokenizer.next.tipo == "TASK":
-                Parser.tokenizer.next_token()
-                if Parser.tokenizer.next.tipo == "IDENTIFIER":
-                    name = Parser.tokenizer.next.valor
-                    Parser.tokenizer.next_token()
-                    return Display(name)
-                else:
-                    raise ValueError("Nome inválido")
             else:
                 raise ValueError("Nome inválido")
         elif Parser.tokenizer.next.tipo == "REPEAT":
@@ -114,11 +99,15 @@ class Parser:
                     state = Parser.parser_state()
                     if Parser.tokenizer.next.tipo == "NEWLINE":
                         Parser.tokenizer.next_token()
-                        tasks = []
-                        while Parser.tokenizer.next.tipo != "END":
-                            tasks.append(Parser.parser_task())
-                        Parser.tokenizer.next_token()  # Consuming "END"
-                        return Repeat([state, Block(tasks)])
+                        if Parser.tokenizer.next.tipo == "MARK":
+                            Parser.tokenizer.next_token()
+                            if Parser.tokenizer.next.tipo == "AS":
+                                Parser.tokenizer.next_token()
+                                state2 = Parser.parser_state()
+                                Parser.tokenizer.next_token()
+                                if Parser.tokenizer.next.tipo == "END":
+                                    Parser.tokenizer.next_token()
+                                return Repeat([state, state2])
                     else:
                         raise ValueError("Nova linha inválida")
                 else:
@@ -217,12 +206,8 @@ class Mark(Node):
         super().__init__(value=name, children=children)
 
     def evaluate(self, symbol_table):
-        if self.value == "EACH":
-            for name, (description, task_state) in symbol_table.table.items():
-                symbol_table.update(name, (description, self.children[0].evaluate(symbol_table)))
-        else:
-            state = self.children[0].evaluate(symbol_table)
-            symbol_table.update(self.value, (symbol_table.get(self.value)[0], state))
+        state = self.children[0].evaluate(symbol_table)
+        symbol_table.update(self.value, (symbol_table.get(self.value)[0], state))
 
 class Display(Node):
     def __init__(self, value):
@@ -237,10 +222,11 @@ class Repeat(Node):
     
     def evaluate(self, symbol_table):
         state = self.children[0].evaluate(symbol_table)
-        block = self.children[1]
+        state2 = self.children[1].evaluate(symbol_table)
         for name, (description, task_state) in symbol_table.table.items():
             if task_state == state:
-                block.evaluate(symbol_table)
+                symbol_table.update(name, (description, state2))
+
 
 class If(Node):
     def __init__(self, value, children):
