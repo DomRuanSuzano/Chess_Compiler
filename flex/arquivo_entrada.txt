@@ -6,8 +6,8 @@ MARK task2 AS DONE
 DISPLAY task2
 
 REPEAT FOR EACH UNDONE
-    DISPLAY task1
-    DISPLAY task2
+    MARK AS DONE
+END
     
 IF task1 IS DONE
     DISPLAY task1

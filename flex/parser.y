@@ -18,7 +18,7 @@ task_declaration : TASK IDENTIFIER STRING task_state NEWLINE
                 | TASK IDENTIFIER STRING NEWLINE
                 | MARK IDENTIFIER AS task_state NEWLINE
                 | DISPLAY IDENTIFIER NEWLINE
-                | REPEAT FOR EACH task_state NEWLINE task_declaration
+                | REPEAT FOR EACH task_state NEWLINE MARK AS task_state NEWLINE END
                 | if
                 | NEWLINE
                  ;
