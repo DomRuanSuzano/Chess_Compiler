@@ -40,14 +40,14 @@ Aqui estão alguns exemplos de como usar o TaskScript:
 1. **Marcar uma tarefa como concluída**:
 
     ```plaintext
-    TASK comprar_leite: "Comprar leite"
+    TASK comprar_leite "Comprar leite"
     MARK comprar_leite AS DONE
     ```
 
 2. **Exibir uma tarefa específica**:
 
     ```plaintext
-    TASK lavar_carro: "Lavar o carro"
+    TASK lavar_carro "Lavar o carro"
     DISPLAY lavar_carro
     ```
 
@@ -79,8 +79,8 @@ Aqui estão alguns exemplos de como usar o TaskScript:
 5. **Condicional para exibir uma tarefa apenas se outra estiver concluída**:
 
     ```plaintext
-    TASK comprar_leite: "Comprar leite"
-    TASK lavar_carro: "Lavar o carro"
+    TASK comprar_leite "Comprar leite"
+    TASK lavar_carro "Lavar o carro"
 
     IF comprar_leite IS DONE
         DISPLAY lavar_carro
